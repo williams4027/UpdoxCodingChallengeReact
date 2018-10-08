@@ -21,6 +21,7 @@ const mapDispatchToProps = dispatch => {
 
 class ProviderTableComponent extends Component {
   removeSelectedProviders(e) {
+    // Iterate through the selected rows, removing each provider and the selected index accordingly
     for(let selectedIndex = 0; selectedIndex < this.props.selected.length; selectedIndex++) {
       let currentRowId = this.props.selected[selectedIndex];
       this.props.providersTableToggleRow(currentRowId);
@@ -72,15 +73,18 @@ class ProviderTableComponent extends Component {
           columns={columns}
           minRows="5"
           filterable
-          getTrProps={(state, rowInfo) => {
+          getTrProps={
+            (state, rowInfo) => {
+              // Runs each time a row is clicked in the table
               if (rowInfo && rowInfo.row) {
                 let displaySelectedRow = selected && Object.values(selected).indexOf(rowInfo.index) > -1;
                 return {
                   onClick: (e) => {
                     providersTableToggleRow(rowInfo.index);
                   },
+                  // Update the table style
                   style: {
-                    background: displaySelectedRow ? '#00afec' : 'white',
+                    background: displaySelectedRow ? 'rgb(0,174,255)' : 'white',
                     color: displaySelectedRow ? 'white' : 'black'
                   }
                 }

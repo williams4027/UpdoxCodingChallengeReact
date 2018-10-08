@@ -32,6 +32,8 @@ class ProviderFormComponent extends React.Component {
 
    handleChange(event) {
      const { provider } = this.state;
+
+     // Update form provider base on new user input
      provider[event.target.id] = event.target.value;
      this.setState({ provider });
    }
@@ -39,6 +41,8 @@ class ProviderFormComponent extends React.Component {
    handleSubmit(event) {
      event.preventDefault();
      const { provider } = this.state;
+
+     // Create new provider based on form data, then wipe current entry
      this.props.providersAddData(provider);
      this.setState({ provider: new ProviderData() });
    }
@@ -55,6 +59,7 @@ class ProviderFormComponent extends React.Component {
              id="first_name"
              value={provider.first_name}
              onChange={this.handleChange}
+             required
            />
            <label htmlFor="last_name">Last Name</label>
            <input
@@ -63,6 +68,7 @@ class ProviderFormComponent extends React.Component {
              id="last_name"
              value={provider.last_name}
              onChange={this.handleChange}
+             required
            />
            <label htmlFor="email_address">Email</label>
            <input
@@ -71,6 +77,7 @@ class ProviderFormComponent extends React.Component {
              id="email_address"
              value={provider.email_address}
              onChange={this.handleChange}
+             required
            />
            <label htmlFor="specialty">Specialty</label>
            <input
@@ -90,7 +97,7 @@ class ProviderFormComponent extends React.Component {
            />
          </div>
          <button type="submit" className="btn btn-success btn-lg">
-           SAVE
+           Create Provider
          </button>
        </form>
      );

@@ -1,3 +1,4 @@
+// Simple data wrapper used when the ProviderForm creates new entries for the ProviderTable
 class ProviderData {
   constructor(first_name, last_name, email_address, specialty, practice_name) {
     this.first_name = first_name ? first_name : "" ;
