@@ -5,8 +5,23 @@ export function providersAdd(provider) {
     };
 }
 
-export function providersAddData(provider) {
-    return (dispatch) => {
-        dispatch(providersAdd(provider));
+export function providersRemove(provider) {
+    return {
+        type: 'PROVIDERS_REMOVE',
+        provider
+    };
+}
+
+export function providersTableToggleRow(rowIndex) {
+    return {
+        type: 'PROVIDERS_TABLE_TOGGLE_ROW',
+        rowIndex
+    };
+}
+
+export function providersFormUpdate(newProvider) {
+    return {
+        type: 'PROVIDERS_FORM_UPDATE',
+        newProvider
     };
 }

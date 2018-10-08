@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 import 'whatwg-fetch';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-table/react-table.css'
-import './css/index.scss';
 
 import App from './js/components/App';
 import * as serviceWorker from './serviceWorker';
 
 import configureStore from "./js/store/index";
+
+import ProviderData from "./js/model/ProviderData";
 
 const initialState = {
   providers: [
@@ -19,7 +21,13 @@ const initialState = {
     {"last_name": "Carlson", "first_name": "Mike", "email_address": "mcarlson@updox.com", "specialty": "Orthopedics", "practice_name": "Carlson Orthopedics"},
     {"last_name": "Witting", "first_name": "Mike", "email_address": "mwitting@updox.com", "specialty": "Pediatrics", "practice_name": "Witting’s Well Kids Pediatrics"},
     {"last_name": "Juday", "first_name": "Tobin", "email_address": "tjuday@updox.com", "specialty": "General Medicine", "practice_name": "Juday Family Practice"},
-  ]
+  ],
+  providersTable: {
+      selectedRows : []
+  },
+  providersForm: {
+      currentProvider : new ProviderData()
+  },
 };
 
 const store = configureStore(initialState);

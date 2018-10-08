@@ -1,93 +1,102 @@
 import React from "react";
 import { connect } from "react-redux";
-import { providersAddData } from "../actions/providers";
+import { providersAdd, providersFormUpdate } from "../actions/providers";
 import ProviderData from "../model/ProviderData";
+
+const mapStateToProps = state => {
+  return {
+    currentProvider: state.providersForm.currentProvider,
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
-    providersAddData: (url, provider) => dispatch(providersAddData(url, provider))
+    providersAddData: (provider) => dispatch(providersAdd(provider)),
+    providersFormUpdate: (newProvider) => dispatch(providersFormUpdate(newProvider)),
   }
 };
 
-class ToDoFormComponent extends React.Component {
+class ProviderFormComponent extends React.Component {
   constructor() {
-    super();
+     super();
 
-    this.state = {
-      provider: new ProviderData()
-    };
+     // In the interest of time, I chose to only modify the local
+     // This is a no-no in redux as you should never mutate state (only replace in reducers)
+     this.state = {
+       provider: new ProviderData()
+     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+     this.handleChange = this.handleChange.bind(this);
+     this.handleSubmit = this.handleSubmit.bind(this);
+   }
 
-  handleChange(event) {
-    const { provider } = this.state;
-    provider[event.target.id] = event.target.value;
-    this.setState({ provider });
-  }
+   handleChange(event) {
+     const { provider } = this.state;
+     provider[event.target.id] = event.target.value;
+     this.setState({ provider });
+   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const { provider } = this.state;
-    this.props.providersAddData(provider);
-    this.setState({ provider: new ProviderData() });
-  }
+   handleSubmit(event) {
+     event.preventDefault();
+     const { provider } = this.state;
+     this.props.providersAddData(provider);
+     this.setState({ provider: new ProviderData() });
+   }
 
-  render() {
-    const { provider } = this.state;
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="first_name">First Name</label>
-          <input
-            type="text"
-            className="form-control"
-            id="first_name"
-            value={provider.first_name}
-            onChange={this.handleChange}
-          />
-          <label htmlFor="last_name">Last Name</label>
-          <input
-            type="text"
-            className="form-control"
-            id="last_name"
-            value={provider.last_name}
-            onChange={this.handleChange}
-          />
-          <label htmlFor="email_address">Email</label>
-          <input
-            type="email"
-            className="form-control"
-            id="email_address"
-            value={provider.email_address}
-            onChange={this.handleChange}
-          />
-          <label htmlFor="specialty">Specialty</label>
-          <input
-            type="text"
-            className="form-control"
-            id="specialty"
-            value={provider.specialty}
-            onChange={this.handleChange}
-          />
-          <label htmlFor="practice_name">Practice Name</label>
-          <input
-            type="text"
-            className="form-control"
-            id="practice_name"
-            value={provider.practice_name}
-            onChange={this.handleChange}
-          />
-        </div>
-        <button type="submit" className="btn btn-success btn-lg">
-          SAVE
-        </button>
-      </form>
-    );
-  }
-}
+   render() {
+     const { provider } = this.state;
+     return (
+       <form onSubmit={this.handleSubmit}>
+         <div className="form-group">
+           <label htmlFor="first_name">First Name</label>
+           <input
+             type="text"
+             className="form-control"
+             id="first_name"
+             value={provider.first_name}
+             onChange={this.handleChange}
+           />
+           <label htmlFor="last_name">Last Name</label>
+           <input
+             type="text"
+             className="form-control"
+             id="last_name"
+             value={provider.last_name}
+             onChange={this.handleChange}
+           />
+           <label htmlFor="email_address">Email</label>
+           <input
+             type="email"
+             className="form-control"
+             id="email_address"
+             value={provider.email_address}
+             onChange={this.handleChange}
+           />
+           <label htmlFor="specialty">Specialty</label>
+           <input
+             type="text"
+             className="form-control"
+             id="specialty"
+             value={provider.specialty}
+             onChange={this.handleChange}
+           />
+           <label htmlFor="practice_name">Practice Name</label>
+           <input
+             type="text"
+             className="form-control"
+             id="practice_name"
+             value={provider.practice_name}
+             onChange={this.handleChange}
+           />
+         </div>
+         <button type="submit" className="btn btn-success btn-lg">
+           SAVE
+         </button>
+       </form>
+     );
+   }
+ }
 
-const ToDoForm = connect(null, mapDispatchToProps)(ToDoFormComponent);
+const ProviderForm = connect(mapStateToProps, mapDispatchToProps)(ProviderFormComponent);
 
-export default ToDoForm;
+export default ProviderForm;
